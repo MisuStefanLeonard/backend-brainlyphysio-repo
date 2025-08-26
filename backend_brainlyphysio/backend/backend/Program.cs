@@ -28,7 +28,6 @@ Environment.SetEnvironmentVariable("CDN_S3_OPERATIONS" , "https://f1c76dd34830b0
 Environment.SetEnvironmentVariable("CDN_ACCESS_KEY_ID" , "3d7be1a5b3a500615fe4ef73203d9dc3");
 Environment.SetEnvironmentVariable("CDN_SECRET_KEY_ID" , "6a37c0db948016b33b6596a731c088c0678b42490ba591a6d31dab72e3fd01d0");
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 var isDocker = Environment.GetEnvironmentVariable("DOCKER") == "true";

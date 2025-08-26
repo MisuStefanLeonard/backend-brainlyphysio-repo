@@ -17,7 +17,7 @@ ENV DB_PORT=3306
 ENV DB_USER=stefan12
 ENV DB_PASSWORD=stefan12
 ENV DB_NAME=BrainlyPhysioDb
-
+ENV DOCKER=true
 # Copy only the project file first to leverage Docker cache during restore
 COPY backend/backend.csproj backend/
 

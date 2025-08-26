@@ -23,7 +23,7 @@ table_list=$(printf "'%s'," "${required_tables[@]}")
 table_list=${table_list%,}  # Remove trailing comma
 
 # Run the query to count the number of tables present
-existing_count=$(mysql -h "$DB_HOST" -P "$DB_PORT" -u "$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" -s -N -e "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='ComertDatabase' AND TABLE_NAME IN ($table_list);")
+existing_count=$(mysql -h "$DB_HOST" -P "$DB_PORT" -u "$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" -s -N -e "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='BrainlyPhysioDb' AND TABLE_NAME IN ($table_list);")
 
 expected_count=${#required_tables[@]}
 
