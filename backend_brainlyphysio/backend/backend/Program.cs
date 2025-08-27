@@ -153,8 +153,14 @@ builder.Services.AddDbContext<DbContextBrainlyPhysio>(options =>
 });
 
 // CORS configuration
-// var corsPolicy = getDockerEnv == "true" ? "http://46.101.141.122:3000" : "http://localhost:3000";
-var corsPolicy = "http://localhost:3000";
+var corsPolicy = new[]
+{
+    "http://31.97.183.12:3000",
+    "https://31.97.183.12:3000",
+    "http://localhost:3000"
+};
+
+// var corsPolicy = "http://localhost:3000";
 
 builder.Services.AddCors(options =>
 {
