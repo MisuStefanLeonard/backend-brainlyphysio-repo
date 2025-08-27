@@ -157,7 +157,9 @@ var corsPolicy = new[]
 {
     "http://31.97.183.12:3000",
     "https://31.97.183.12:3000",
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "https://brainlyphysio.ro",
+    "https://www.brainlyphysio.ro",
 };
 
 // var corsPolicy = "http://localhost:3000";
