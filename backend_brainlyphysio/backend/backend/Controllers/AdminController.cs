@@ -103,7 +103,7 @@ public class AdminController : ControllerBase
     [HttpPost]
     [Authorize]
     [Route("account/create")]
-    public async Task<IActionResult> CreateAccount([FromForm] IFormFile image,[FromForm] string accountString)
+    public async Task<IActionResult> CreateAccount([FromForm] IFormFile? image,[FromForm] string accountString)
     {
         var account = JsonConvert.DeserializeObject<AccountCrud>(accountString);
         var createAccountResponse = await _accountService.CreateAccount(account!,image);
@@ -119,7 +119,7 @@ public class AdminController : ControllerBase
     [HttpPut]
     [Authorize]
     [Route("account/modify")]
-    public async Task<IActionResult> ModifyAccount([FromForm] IFormFile image,[FromForm]string accountString)
+    public async Task<IActionResult> ModifyAccount([FromForm] IFormFile? image,[FromForm]string accountString)
     {
         var account = JsonConvert.DeserializeObject<AccountCrud>(accountString);
         var modifyAccountResponse = await _accountService.ModifyAccount(account!,image);
