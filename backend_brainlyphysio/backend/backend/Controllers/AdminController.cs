@@ -85,7 +85,7 @@ public class AdminController : ControllerBase
         
         var getSecretHeader = await _cloudflareCdnService.GetCdnSecret("admin_header");
         var bytesSecret = Encoding.UTF8.GetBytes(getSecretHeader);
-        Response.Cookies.Append("ASP_NET_ADMIN_SESSION" , Convert.ToBase64String(bytesSecret) , cookieOptions);
+        Response.Cookies.Append("ASP_NET_ADMIN_SESSION", Convert.ToBase64String(bytesSecret) , cookieOptions);
         Response.Cookies.Append("adminLoggedIn" , "1" , cookieOptions);
         return Ok("Succesfully logged in into admin dashboard");
 
