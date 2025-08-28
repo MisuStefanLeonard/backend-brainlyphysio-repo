@@ -589,21 +589,28 @@ public class AccountService : IAccountService
             if (image == null)
             {
                 // Delete old image if exists
-                if (findAccount.ImagePath != null)
+                if (cont.PresignedUrl != null && cont.PresignedUrl.Contains("https://images"))
                 {
-                    _logger.LogInformation("Deleting old image from Cloudflare CDN...");
-                    var deleteResponse = await _cloudflareCdnService.DeleteFromCdnBucket(findAccount.ImagePath!);
-                    if (deleteResponse == 1)
-                        _logger.LogInformation("Successfully deleted image from Cloudflare CDN");
-                    else
-                        _logger.LogError("Error deleting image from Cloudflare CDN");
-
-                    findAccount.ImagePath = null;
-                    findAccount.ImageHash = null;
+                    _logger.LogInformation("No image modified. Still the same one!");
                 }
                 else
                 {
-                    _logger.LogInformation("No image to delete. Continuing...");
+                    if (findAccount.ImagePath != null)
+                    {
+                        _logger.LogInformation("Deleting old image from Cloudflare CDN...");
+                        var deleteResponse = await _cloudflareCdnService.DeleteFromCdnBucket(findAccount.ImagePath!);
+                        if (deleteResponse == 1)
+                            _logger.LogInformation("Successfully deleted image from Cloudflare CDN");
+                        else
+                            _logger.LogError("Error deleting image from Cloudflare CDN");
+
+                        findAccount.ImagePath = null;
+                        findAccount.ImageHash = null;
+                    }
+                    else
+                    {
+                        _logger.LogInformation("No image to delete. Continuing...");
+                    }
                 }
             }
             else

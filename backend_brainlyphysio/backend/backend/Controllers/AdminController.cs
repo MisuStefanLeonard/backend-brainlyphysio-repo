@@ -44,28 +44,28 @@ public class AdminController : ControllerBase
     [Authorize]
     public async Task<IActionResult> GetAdminLogIn([FromRoute] string redirect)
     {
-        if (redirect != "redirect")
+        // if (redirect != "redirect")
+        // {
+        //     return Ok("Authorized");
+        // }
+        // else
+        // {
+        var isAdminLoggedIn = Request.Cookies.TryGetValue("adminLoggedIn", out var adminLoggedInString) && adminLoggedInString == "1";
+        var getHeaderSecret = await _cloudflareCdnService.GetCdnSecret("admin_header");
+        var decodedString = "";
+        if (Request.Cookies.TryGetValue("ASP_NET_ADMIN_SESSION", out var encodedString))
         {
-            return Ok("Authorized");
+            decodedString = Encoding.UTF8.GetString(Convert.FromBase64String(encodedString));
         }
-        else
-        {
-            var isAdminLoggedIn = Request.Cookies.TryGetValue("adminLoggedIn", out var adminLoggedInString) && adminLoggedInString == "1";
-            var getHeaderSecret = await _cloudflareCdnService.GetCdnSecret("admin_header");
-            var decodedString = "";
-            if (Request.Cookies.TryGetValue("ASP_NET_ADMIN_SESSION", out var encodedString))
-            {
-                decodedString = Encoding.UTF8.GetString(Convert.FromBase64String(encodedString));
-            }
 
-            if (isAdminLoggedIn && decodedString != "" && decodedString == getHeaderSecret)
-            {
-                return NoContent(); // redirect to dashboard
-            }
-            
-            return Ok("Please authorize yourself");
-            
+        if (isAdminLoggedIn && decodedString != "" && decodedString == getHeaderSecret)
+        {
+            return NoContent(); // redirect to dashboard
         }
+        
+        return Ok("Please authorize yourself");
+            
+        // }
     }
 
     [HttpPost("login")]
