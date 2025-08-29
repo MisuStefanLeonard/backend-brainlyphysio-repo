@@ -196,7 +196,7 @@ public class AccountService : IAccountService
                 Password = hashedPassword,
                 ImagePath = null,
                 ImageHash = null,
-                Role = "Membru",
+                Role = "Student",
                 ConfirmationLinkHour = DateTime.UtcNow,
                 ActivationCode = token,
                 IsVerified = true,
@@ -398,7 +398,7 @@ public class AccountService : IAccountService
         _logger.LogInformation("Fetching member data for displaying on main page...");
         var members =  await _unitOfWork.Repository<Account>()
             .GetSimpleQueryable()
-            .Where(member => member.Role != "Admin")
+            .Where(member => member.Role != "Admin" && member.Role != "Student")
             .OrderByDescending(member => member.Role == "Fondator")
             .Select(member => new Member
             {
